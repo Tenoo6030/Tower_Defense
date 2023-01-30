@@ -174,7 +174,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -236,11 +236,12 @@ MonoBehaviour:
   obstaclesTilePref:
   - {fileID: 6143672340468014086, guid: 7bb3253125fe9e84f81ea0e8659359bb, type: 3}
   - {fileID: 68128816168711433, guid: 17f2f0f3b70a6b64191cc9979c546a4c, type: 3}
-  - {fileID: 6223635040939047947, guid: 901ad755feefc46419bc05b570310ff3, type: 3}
+  - {fileID: 5214310296378336442, guid: a4e5876dbd135e4408a6088fc1cd4426, type: 3}
   - {fileID: 5500595829997711155, guid: aa527a70ba66c7a4b908f2e6e67af5ff, type: 3}
   - {fileID: 7099877235242392092, guid: b1f8b62ed027e2f43a1a51e29e52449f, type: 3}
+  - {fileID: 6223635040939047947, guid: 901ad755feefc46419bc05b570310ff3, type: 3}
   - {fileID: 4687698439072806665, guid: e1fcc910b861ec142b6b82d1620435cb, type: 3}
-  - {fileID: 0}
+  - {fileID: 1533068506655834, guid: 91baf89136e5b2a41b9669b2fee8803c, type: 3}
 --- !u!4 &1673248356
 Transform:
   m_ObjectHideFlags: 0
