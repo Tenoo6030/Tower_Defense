@@ -5,9 +5,9 @@ using System;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] obstaclesTilePref;
-    private GameObject[] roadTilePref;
+    [SerializeField] private GameObject[] obstaclesTilePref;
+    //private GameObject[] roadTilePref;
+    [SerializeField] private CameraMovemnt cam;
 
     public float ObstaclesTileSize
     {
@@ -33,6 +33,8 @@ public class LevelManager : MonoBehaviour
         int mapX = mapData[0].ToCharArray().Length;
         int mapY = mapData.Length;
 
+        Vector3 maxTile = Vector3.zero;
+
         Vector3 worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
         for (int y = 0; y < mapY; y++)
         {
@@ -40,17 +42,19 @@ public class LevelManager : MonoBehaviour
 
             for (int x = 0; x< mapX; x++)
             {
-                PLaceTile(newTile[x].ToString(),x,y,worldStart);
+                maxTile = PLaceTile(newTile[x].ToString(),x,y,worldStart);
             }
         }
+        cam.SetLimites(new Vector3(maxTile.x + ObstaclesTileSize, maxTile.y - ObstaclesTileSize));
     }
 
-    private void PLaceTile(string tileType, int x, int y, Vector3 worldStart)
+    private Vector3 PLaceTile(string tileType, int x, int y, Vector3 worldStart)
     {
         int tileIndex = int.Parse(tileType);
 
         GameObject newTile = Instantiate(obstaclesTilePref[tileIndex]);
         newTile.transform.position = new Vector3(worldStart.x +(ObstaclesTileSize * x),worldStart.y - (ObstaclesTileSize * y), 0);
+        return newTile.transform.position;
     }
 
     private string[] ReadLevelText()
