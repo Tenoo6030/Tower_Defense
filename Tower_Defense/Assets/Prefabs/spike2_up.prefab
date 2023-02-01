@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7026029511909660664}
   - component: {fileID: 5383881415360745839}
+  - component: {fileID: -2202107957309460426}
   m_Layer: 0
   m_Name: spike2_up
   m_TagString: Untagged
@@ -81,3 +82,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-2202107957309460426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099877235242392092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d4c21f3a3006543af2f265b0df25de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

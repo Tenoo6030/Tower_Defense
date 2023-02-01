@@ -5,22 +5,15 @@ using System;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] obstaclesTilePref;
-    //private GameObject[] roadTilePref;
+    [SerializeField] private GameObject[] tilePref;
     [SerializeField] private CameraMovemnt cam;
 
-    public float ObstaclesTileSize
+    public Dictionary<Point,TileScript> Tiles { get; set; }
+    public float TileSize
     {
-        get { return obstaclesTilePref[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;}
+        get { return tilePref[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;}
     }
-    /* public float RoadTileSize
-    {
-        get
-        {
-            return roadTilePref[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-        }
-    }*/
-    // Start is called before the first frame update
+  
     void Start()
     {
         CreateLevel();
@@ -28,6 +21,7 @@ public class LevelManager : MonoBehaviour
 
     private void CreateLevel()
     {
+        Tiles = new Dictionary<Point, TileScript>();
         string[] mapData=ReadLevelText();
 
         int mapX = mapData[0].ToCharArray().Length;
@@ -42,25 +36,27 @@ public class LevelManager : MonoBehaviour
 
             for (int x = 0; x< mapX; x++)
             {
-                maxTile = PLaceTile(newTile[x].ToString(),x,y,worldStart);
+               PLaceTile(newTile[x].ToString(),x,y,worldStart);
             }
         }
-        cam.SetLimites(new Vector3(maxTile.x + ObstaclesTileSize, maxTile.y - ObstaclesTileSize));
+        maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
+        cam.SetLimites(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
     }
 
-    private Vector3 PLaceTile(string tileType, int x, int y, Vector3 worldStart)
+    private void PLaceTile(string tileType, int x, int y, Vector3 worldStart)
     {
         int tileIndex = int.Parse(tileType);
-
-        GameObject newTile = Instantiate(obstaclesTilePref[tileIndex]);
-        newTile.transform.position = new Vector3(worldStart.x +(ObstaclesTileSize * x),worldStart.y - (ObstaclesTileSize * y), 0);
-        return newTile.transform.position;
+        TileScript newTile = Instantiate(tilePref[tileIndex]).GetComponent<TileScript>();
+        newTile.Setup(new Point(x, y),new Vector3(worldStart.x +(TileSize * x),worldStart.y - (TileSize * y), 0));
+        Tiles.Add(new Point(x, y), newTile);
+       
     }
 
     private string[] ReadLevelText()
     {
         TextAsset bindData = Resources.Load("Level") as TextAsset;
         string data = bindData.text.Replace(Environment.NewLine, string.Empty);
+       
         return data.Split('-');
     }
 }
