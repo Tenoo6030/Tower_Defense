@@ -5,22 +5,31 @@ using UnityEngine;
 public class TileScript : MonoBehaviour
 {
     public Point GridPosition { get; private set; }
+    public Vector2 WorldPosition
+    {
+        get
+        {
+            Vector2 customPivot = LevelManager.Instance.tileSize/2;
+            return new Vector2(transform.position.x + customPivot.x, transform.position.y - customPivot.y);
+        }
+    }
 
-    // Start is called before the first frame update
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void Setup(Point gridPos, Vector3 wordPos)
+    public void Setup(Point gridPos, Vector3 wordPos,Transform parent)
     {
-        this.GridPosition = GridPosition;
+        GridPosition = gridPos;
         transform.position = wordPos;
+        transform.SetParent(parent);
+        LevelManager.Instance.Tiles.Add(gridPos,this);
     }
 }
