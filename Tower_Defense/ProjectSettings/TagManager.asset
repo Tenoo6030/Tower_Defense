@@ -38,9 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Backgrand
+    uniqueID: 368131331
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Trees
     uniqueID: 3010637783
+    locked: 0
+  - name: Towers
+    uniqueID: 2295937099
     locked: 0

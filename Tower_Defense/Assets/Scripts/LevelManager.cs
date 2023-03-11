@@ -13,6 +13,7 @@ public class LevelManager : Singleton<LevelManager>
     private Point greenSpawn, purpleSpawn;
     public Dictionary<Point,TileScript> Tiles { get; set; }
     [HideInInspector] public float TileSize => tileSize.x;
+    [HideInInspector] public Sprite TowerBacgrand => tilePref[0].GetComponent<SpriteRenderer>().sprite;
    
     void Start()
     {
