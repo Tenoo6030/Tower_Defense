@@ -20,9 +20,11 @@ public class GameManager : Singleton<GameManager>
     public void PickTower(TowerButton towerButton)
     {
        ClickedButton = towerButton;
+       Hover.Instance.Activate(towerButton.TowerIcon);
     }
     public void BayTower()
     {
         ClickedButton = null;
+        Hover.Instance.Disactivate();
     }
 }
