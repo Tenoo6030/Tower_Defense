@@ -8,12 +8,16 @@ public class Hover : Singleton<Hover>
     void Start()
     {
         spriteTarget = GetComponent<SpriteRenderer>();
+        spriteTarget.enabled = false;
     }
 
  
     void Update()
     {
-        FolowMouse();
+        if (spriteTarget.enabled)
+        {
+            FolowMouse();
+        }
         
     }
 
@@ -30,5 +34,6 @@ public class Hover : Singleton<Hover>
     public void Disactivate()
     {
         spriteTarget.enabled = false;
+        GameManager.Instance.ClickedButton = null;
     }
 }

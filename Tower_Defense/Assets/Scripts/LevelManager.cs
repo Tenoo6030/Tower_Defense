@@ -10,6 +10,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private CameraMovemnt cam;
     [SerializeField] private Transform map;
     [HideInInspector]public Vector2 tileSize;
+    private Point mapSize;
     private Point greenSpawn, purpleSpawn;
     public Dictionary<Point,TileScript> Tiles { get; set; }
     [HideInInspector] public float TileSize => tileSize.x;
@@ -25,9 +26,9 @@ public class LevelManager : Singleton<LevelManager>
     {
         Tiles = new Dictionary<Point, TileScript>();
         string[] mapData=ReadLevelText();
-
         int mapX = mapData[0].ToCharArray().Length;
         int mapY = mapData.Length;
+        mapSize = new Point(mapX,mapY);
 
         Vector3 maxTile;
 
@@ -61,6 +62,7 @@ public class LevelManager : Singleton<LevelManager>
        
         return data.Split('-');
     }
+
     private void SpawnPortals()
     {
         greenSpawn = new Point(0, 0);
@@ -70,4 +72,7 @@ public class LevelManager : Singleton<LevelManager>
         Instantiate(purplePortalPref, Tiles[purpleSpawn].WorldPosition,Quaternion.identity);
 
     }
+
+    public bool InBounds(Point position) => position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
+  
 }

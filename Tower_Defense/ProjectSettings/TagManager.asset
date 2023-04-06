@@ -50,3 +50,6 @@ TagManager:
   - name: Towers
     uniqueID: 2295937099
     locked: 0
+  - name: Debug
+    uniqueID: 2630127939
+    locked: 0
