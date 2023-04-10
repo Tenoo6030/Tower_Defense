@@ -47,6 +47,9 @@ TagManager:
   - name: Trees
     uniqueID: 3010637783
     locked: 0
+  - name: Enemy
+    uniqueID: 1780371537
+    locked: 0
   - name: Towers
     uniqueID: 2295937099
     locked: 0

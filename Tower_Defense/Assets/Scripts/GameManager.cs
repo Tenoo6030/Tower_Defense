@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
 
 
     public TowerButton ClickedButton { get; set; }
+    public ObjectPool Pool { get; set; }
     public int Cash
     {
         get { return cash; }
@@ -21,6 +22,10 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private void Awake()
+    {
+        Pool = GetComponent<ObjectPool>();
+    }
     void Start()
     {
         Cash = 45;
@@ -51,5 +56,39 @@ public class GameManager : Singleton<GameManager>
         {
             Hover.Instance.Disactivate();
         }
+    }
+
+    public void StartWawe()
+    {
+        StartCoroutine(SpawnWawe());
+    }
+
+    private IEnumerator SpawnWawe()
+    {
+
+        int monsterIndex = Random.Range(0, 4);
+        string type = string.Empty;
+
+        switch (monsterIndex)
+        {
+            case 0:
+                type = "EnemyGreen";
+                break;
+            case 1:
+                type = "EnemyPurple";
+                break;
+            case 2:
+                type = "EnemyYellow";
+                break;
+            case 3:
+                type = "EnemyRed";
+                break;
+            default:
+                break;
+        }
+
+        Pool.GetObject(type);
+
+        yield return new WaitForSeconds(2.5f);
     }
 }
