@@ -9,13 +9,30 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private GameObject[] tilePref;
     [SerializeField] private CameraMovemnt cam;
     [SerializeField] private Transform map;
-    [HideInInspector]public Vector2 tileSize;
+
     private Point mapSize;
     private Point greenSpawn, purpleSpawn;
-    public Dictionary<Point,TileScript> Tiles { get; set; }
+    private Stack<Node> path;
+
+    [HideInInspector] public Vector2 tileSize;
     [HideInInspector] public float TileSize => tileSize.x;
     [HideInInspector] public Sprite TowerBacgrand => tilePref[0].GetComponent<SpriteRenderer>().sprite;
-   
+
+    public Dictionary<Point,TileScript> Tiles { get; set; }
+
+    public Portal GreenPortal { get; set; }
+
+    public Stack<Node> Path { 
+        get 
+        {
+            if (path==null)
+            {
+                GeneratePath();
+            }
+            return new Stack<Node>(new Stack<Node>(path));
+        }
+    }
+    
     void Start()
     {
         tileSize = tilePref[0].GetComponent<SpriteRenderer>().sprite.bounds.size;
@@ -66,8 +83,10 @@ public class LevelManager : Singleton<LevelManager>
     private void SpawnPortals()
     {
         greenSpawn = new Point(0, 0);
-        Instantiate(greenPortalPref, Tiles[greenSpawn].WorldPosition,Quaternion.identity);
-        
+        GameObject tmp = Instantiate(greenPortalPref, Tiles[greenSpawn].WorldPosition,Quaternion.identity);
+        GreenPortal = tmp.GetComponent<Portal>();
+        GreenPortal.name = "GreenPortal";
+
         purpleSpawn = new Point(9, 4);
         Instantiate(purplePortalPref, Tiles[purpleSpawn].WorldPosition,Quaternion.identity);
 
@@ -75,4 +94,8 @@ public class LevelManager : Singleton<LevelManager>
 
     public bool InBounds(Point position) => position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
   
+    public void GeneratePath()
+    {
+        path = AStar.GetPath(greenSpawn, purpleSpawn);
+    }
 }

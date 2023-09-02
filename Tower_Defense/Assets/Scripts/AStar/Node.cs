@@ -6,6 +6,7 @@ public class Node
 {
     public Point GridePosition { get; private set; }
     public TileScript TileRef { get; private set; }
+    public Vector2 WorldPosition { get; set; }
     public int G { get; set; }
     public int H { get; set; }
     public int F { get; set; }
@@ -16,6 +17,7 @@ public class Node
     {
         TileRef = tileRef;
         GridePosition = tileRef.GridPosition;
+        WorldPosition = tileRef.WorldPosition;
     }
     public void CalcValus(Node parent,Node goal, int gCost)
     {

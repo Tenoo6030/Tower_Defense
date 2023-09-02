@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PurplePortal
+  - GreenPortal
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - Trees
+  - 
   - 
   - 
   - 
@@ -38,21 +40,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Backgrand
-    uniqueID: 368131331
+  - name: Background
+    uniqueID: 3360000323
+    locked: 0
+  - name: Terrain
+    uniqueID: 795681901
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Trees
-    uniqueID: 3010637783
+  - name: Obstacle
+    uniqueID: 344093529
+    locked: 0
+  - name: Tower
+    uniqueID: 646369213
     locked: 0
   - name: Enemy
-    uniqueID: 1780371537
-    locked: 0
-  - name: Towers
-    uniqueID: 2295937099
-    locked: 0
-  - name: Debug
-    uniqueID: 2630127939
+    uniqueID: 2629413685
     locked: 0
