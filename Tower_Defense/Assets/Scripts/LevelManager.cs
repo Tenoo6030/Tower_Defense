@@ -32,7 +32,9 @@ public class LevelManager : Singleton<LevelManager>
             return new Stack<Node>(new Stack<Node>(path));
         }
     }
-    
+
+    public Point GreenSpawn { get => greenSpawn;}
+
     void Start()
     {
         tileSize = tilePref[0].GetComponent<SpriteRenderer>().sprite.bounds.size;
@@ -83,7 +85,7 @@ public class LevelManager : Singleton<LevelManager>
     private void SpawnPortals()
     {
         greenSpawn = new Point(0, 0);
-        GameObject tmp = Instantiate(greenPortalPref, Tiles[greenSpawn].WorldPosition,Quaternion.identity);
+        GameObject tmp = Instantiate(greenPortalPref, Tiles[GreenSpawn].WorldPosition,Quaternion.identity);
         GreenPortal = tmp.GetComponent<Portal>();
         GreenPortal.name = "GreenPortal";
 
@@ -96,6 +98,6 @@ public class LevelManager : Singleton<LevelManager>
   
     public void GeneratePath()
     {
-        path = AStar.GetPath(greenSpawn, purpleSpawn);
+        path = AStar.GetPath(GreenSpawn, purpleSpawn);
     }
 }
