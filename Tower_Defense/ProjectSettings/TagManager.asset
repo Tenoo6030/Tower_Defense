@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PurplePortal
   - GreenPortal
+  - Walkable
+  - Obstacle
   layers:
   - Default
   - TransparentFX

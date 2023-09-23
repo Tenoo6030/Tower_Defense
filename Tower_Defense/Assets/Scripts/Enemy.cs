@@ -84,6 +84,6 @@ public class Enemy : MonoBehaviour
         IsActive = false;
         GridePosition = LevelManager.Instance.GreenSpawn;
         GameManager.Instance.Pool.ReleaseObject(gameObject);
-
+        GameManager.Instance.RemoveEnemy(this);
     }
 }

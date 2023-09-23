@@ -28,6 +28,15 @@ public class TileScript : MonoBehaviour
 
     public void Setup(Point gridPos, Vector3 wordPos,Transform parent)
     {
+        /* if (this.CompareTag("Obstacle"))
+         {
+             IsWalkable = false;
+         }
+         else
+         {
+             IsWalkable = true;
+
+         }*/
         IsWalkable = true;
         GridPosition = gridPos;
         transform.position = wordPos;

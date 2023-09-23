@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
-    [SerializeField] private TMPro.TextMeshProUGUI cashText;
-    private int cash = 5;
+    private int cash = 5, wawe = 0;
     private int cost;
+    [SerializeField] private GameObject waweButon;
+    [SerializeField] private TMPro.TextMeshProUGUI cashText, waweText;
+    private List<Enemy> activeEnemy = new List<Enemy>();
 
-
+    public bool WaweActive => activeEnemy.Count > 0;
     public TowerButton ClickedButton { get; set; }
     public ObjectPool Pool { get; set; }
     public int Cash
@@ -38,7 +39,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PickTower(TowerButton towerButton)
     {
-        if (Cash >= towerButton.Price)
+        if (Cash >= towerButton.Price && !WaweActive)
         {
             ClickedButton = towerButton;
             Hover.Instance.Activate(towerButton.TowerIcon);
@@ -60,37 +61,56 @@ public class GameManager : Singleton<GameManager>
 
     public void StartWawe()
     {
+        wawe++;
+        waweText.text =string.Format( "Wawe {0}", wawe);
+        
         StartCoroutine(SpawnWawe());
+
+        waweButon.SetActive(false);
     }
 
     private IEnumerator SpawnWawe()
     {
         LevelManager.Instance.GeneratePath();
 
-        int monsterIndex = Random.Range(0, 4);
-        string type = string.Empty;
-
-        switch (monsterIndex)
+        for (int i = 0; i < wawe + 5; i++)
         {
-            case 0:
-                type = "EnemyGreen";
-                break;
-            case 1:
-                type = "EnemyPurple";
-                break;
-            case 2:
-                type = "EnemyYellow";
-                break;
-            case 3:
-                type = "EnemyRed";
-                break;
-            default:
-                break;
+
+
+            int monsterIndex = Random.Range(0, 4);
+            string type = string.Empty;
+
+            switch (monsterIndex)
+            {
+                case 0:
+                    type = "EnemyGreen";
+                    break;
+                case 1:
+                    type = "EnemyPurple";
+                    break;
+                case 2:
+                    type = "EnemyYellow";
+                    break;
+                case 3:
+                    type = "EnemyRed";
+                    break;
+                default:
+                    break;
+            }
+
+            Enemy enemy = Pool.GetObject(type).GetComponent<Enemy>();
+            enemy.Spawn();
+            activeEnemy.Add(enemy);
+            yield return new WaitForSeconds(2.5f);
         }
+    }
 
-        Enemy enemy = Pool.GetObject(type).GetComponent<Enemy>();
-        enemy.Spawn();
-
-        yield return new WaitForSeconds(2.5f);
+    public void RemoveEnemy(Enemy enemy)
+    {
+        activeEnemy.Remove(enemy);
+        if (!WaweActive)
+        {
+            waweButon.SetActive(true);
+        }
     }
 }
